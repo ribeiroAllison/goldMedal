@@ -117,8 +117,10 @@ public class GoldMedalController {
                 countries = ascendingOrder ? this.countryRepository.findAllByOrderByPopulationAsc() : this.countryRepository.findAllByOrderByPopulationDesc();
                 break;
             case "medals":
+                countries = ascendingOrder ? this.countryRepository.findCountriesOrderedByMedalCountAsc() : this.countryRepository.findCountriesOrderedByMedalCountDesc();
+                break;
             default:
-                countries = ascendingOrder ? this.countryRepository.findAllByOrderByMedalsAsc() : this.countryRepository.findAllByOrderByMedalsDesc();
+                countries = ascendingOrder ? this.countryRepository.findAllByOrderByNameAsc() : this.countryRepository.findAllByOrderByNameDesc(); 
                 break;
         }
 

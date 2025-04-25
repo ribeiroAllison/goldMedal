@@ -15,6 +15,7 @@ public interface GoldMedalRepository extends CrudRepository<GoldMedal, Long> {
   List<GoldMedal> findAllByOrderByNameDesc();
   List<GoldMedal> findAllByOrderByEventAsc();
   List<GoldMedal> findAllByOrderByEventDesc();
+  
   Integer countByCountry(String countryName);
   //get the collection of wins at the Summer Olympics, sorted by year in ascending order
   List<GoldMedal> findByCountryAndSeasonOrderByYearAsc(String countryName, String season);

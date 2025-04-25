@@ -1,6 +1,8 @@
 package com.codecademy.goldmedal.repositories;
 
 import com.codecademy.goldmedal.model.Country;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -15,7 +17,17 @@ public interface CountryRepository extends CrudRepository<Country, Long> {
   List<Country> findAllByOrderByGdpDesc();
   List<Country> findAllByOrderByPopulationAsc();
   List<Country> findAllByOrderByPopulationDesc();
-  List<Country> findAllByOrderByMedalsAsc();
-  List<Country> findAllByOrderByMedalsDesc();
+  @Query("SELECT c, COUNT(g) as medalCount " +
+           "FROM Country c " +
+           "LEFT JOIN GoldMedal g ON c.name = g.country " +
+           "GROUP BY c.id, c.name, c.gdp, c.population " +
+           "ORDER BY medalCount DESC")
+    List<Country> findCountriesOrderedByMedalCountDesc();
 
+    @Query("SELECT c, COUNT(g) as medalCount " +
+           "FROM Country c " +
+           "LEFT JOIN GoldMedal g ON c.name = g.country " +
+           "GROUP BY c.id, c.name, c.gdp, c.population " +
+           "ORDER BY medalCount ASC")
+    List<Country> findCountriesOrderedByMedalCountAsc();
 }
